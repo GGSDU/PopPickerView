@@ -66,7 +66,7 @@
     for (id button in self.scrollView.subviews) {
         if ([button isKindOfClass:[UIButton class]]) {
             // 加下边线
-            [button addLineOn:Top color:_seperateLineColor width:1];
+            [button addLineOn:Top color:_seperateLineColor size:CGSizeMake(self.scrollView.bounds.size.width, 1)];
         }
     }
 }
@@ -103,7 +103,7 @@
             
             // 加下边线
             UIColor *lineColor = self.seperateLineColor;
-            [button addLineOn:Top color:lineColor width:1];
+            [button addLineOn:Top color:lineColor size:CGSizeMake(self.scrollView.bounds.size.width, 1)];
             
             if (button.tag == self.currentSelectedIndex + BaseTag) {
                 button.selected = YES;

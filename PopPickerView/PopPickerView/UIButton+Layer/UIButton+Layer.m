@@ -10,34 +10,34 @@
 
 @implementation UIButton (Layer)
 
-- (void)addLineOn:(LayerDirection)direction color:(UIColor *)color width:(CGFloat)width
+- (void)addLineOn:(LayerDirection)direction color:(UIColor *)color size:(CGSize)size
 {
     CALayer *layer = [CALayer layer];
     layer.backgroundColor = color.CGColor;
-    CGPoint origin = CGPointZero;
-    CGSize size = CGSizeZero;
+    CGFloat originX = 0;
+    CGFloat originY = 0;
     switch (direction) {
         case Top:
-            origin = CGPointMake((self.bounds.size.width - width) / 2 , 0);
-            size = CGSizeMake(self.bounds.size.width, width);
+            originX = (self.bounds.size.width - size.width) / 2;
+            originY = 0;
             break;
         case Left:
-            origin = CGPointMake(0, (self.bounds.size.height - width) / 2);
-            size = CGSizeMake(width, self.bounds.size.height);
+            originX = 0;
+            originY = (self.bounds.size.height - size.height) / 2;
             break;
         case Bottom:
-            origin = CGPointMake((self.bounds.size.width - width) / 2, self.bounds.size.height - width);
-            size = CGSizeMake(self.bounds.size.width, width);
+            originX = (self.bounds.size.width - size.width) / 2;
+            originY = self.bounds.size.height - size.height;
             break;
         case Right:
-            origin = CGPointMake(self.bounds.size.width - width, (self.bounds.size.height - width) / 2);
-            size = CGSizeMake(width, self.bounds.size.height);
+            originX = self.bounds.size.width - size.width;
+            originY = (self.bounds.size.height - size.height) / 2;
             break;
         default:
             break;
     }
     
-    layer.frame = CGRectMake(origin.x, origin.y, size.width, size.height);
+    layer.frame = CGRectMake(originX, originY, size.width, size.height);
     [self.layer addSublayer:layer];
 }
 

@@ -17,6 +17,6 @@ typedef enum : NSUInteger {
 
 @interface UIButton (Layer)
 
-- (void)addLineOn:(LayerDirection)direction color:(UIColor *)color width:(CGFloat)width;
+- (void)addLineOn:(LayerDirection)direction color:(UIColor *)color size:(CGSize)size;
 
 @end
