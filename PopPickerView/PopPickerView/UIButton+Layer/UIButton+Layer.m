@@ -18,19 +18,19 @@
     CGSize size = CGSizeZero;
     switch (direction) {
         case Top:
-            origin = CGPointMake(0, 0);
+            origin = CGPointMake((self.bounds.size.width - width) / 2 , 0);
             size = CGSizeMake(self.bounds.size.width, width);
             break;
         case Left:
-            origin = CGPointMake(0, 0);
+            origin = CGPointMake(0, (self.bounds.size.height - width) / 2);
             size = CGSizeMake(width, self.bounds.size.height);
             break;
         case Bottom:
-            origin = CGPointMake(0, self.bounds.size.height - width);
+            origin = CGPointMake((self.bounds.size.width - width) / 2, self.bounds.size.height - width);
             size = CGSizeMake(self.bounds.size.width, width);
             break;
         case Right:
-            origin = CGPointMake(self.bounds.size.width - width, 0);
+            origin = CGPointMake(self.bounds.size.width - width, (self.bounds.size.height - width) / 2);
             size = CGSizeMake(width, self.bounds.size.height);
             break;
         default:
