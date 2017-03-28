@@ -18,6 +18,7 @@
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,assign) BOOL shown;
+@property (nonatomic,assign) CGFloat buttonHeight;
 
 @end
 
@@ -34,6 +35,9 @@
             } else button.selected = false;
         }
     }
+    
+    CGFloat offsetY = [self offsetYForScrollViewWith:_currentSelectedIndex];
+    self.scrollView.contentOffset = CGPointMake(0, offsetY);
 }
 
 - (void)setDefaultTitleColor:(UIColor *)defaultTitleColor
@@ -81,13 +85,13 @@
         [self.dataArray addObjectsFromArray:titleArray];
     }
     
-    CGFloat buttonHeight = self.scrollView.bounds.size.height / self.displayCount;
+    self.buttonHeight = self.scrollView.bounds.size.height / self.displayCount;
     for (int i = 0; i < self.dataArray.count; i++) {
         id value = self.dataArray[i];
         if ([value isKindOfClass:[NSString class]]) {
             
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake(0, buttonHeight * i, self.scrollView.bounds.size.width, buttonHeight);
+            button.frame = CGRectMake(0, self.buttonHeight * i, self.scrollView.bounds.size.width, self.buttonHeight);
             UIColor *normalColor = self.defaultTitleColor;
             UIColor *selectedColor = self.selectedTitleColor;
             [button setTitleColor:normalColor forState:UIControlStateNormal];
@@ -106,7 +110,9 @@
             }
         } else return;
     }
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, buttonHeight * self.dataArray.count);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.buttonHeight * self.dataArray.count);
+    CGFloat offsetY = [self offsetYForScrollViewWith:self.currentSelectedIndex];
+    self.scrollView.contentOffset = CGPointMake(0, offsetY);
 }
 
 #pragma mark - event
@@ -123,6 +129,18 @@
     if ([self.delegate respondsToSelector:@selector(popPickerView:didSelectAtIndex:)]) {
         [self.delegate popPickerView:self didSelectAtIndex:aSender.tag - BaseTag];
     }
+}
+
+#pragma mark - private methods
+- (CGFloat)offsetYForScrollViewWith:(NSUInteger)selectedIndex
+{
+    CGFloat offsetY = 0;
+    if (selectedIndex > self.dataArray.count - self.displayCount) {
+        offsetY = self.buttonHeight * (self.dataArray.count - self.displayCount);
+    } else {
+        offsetY = self.buttonHeight * selectedIndex;
+    }
+    return offsetY;
 }
 
 #pragma mark - getter
