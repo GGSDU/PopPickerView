@@ -39,6 +39,8 @@
 @property (nonatomic,assign) id<PopPickerViewDataSource>dataSource;
 @property (nonatomic,assign) id<PopPickerViewDelegate>delegate;
 
+@property (nonatomic,assign) BOOL shown;
+
 - (void)show;
 
 @end

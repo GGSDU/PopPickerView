@@ -36,6 +36,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - touch event
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    if (self.popPickerView.shown) {
+        [self.popPickerView removeFromSuperview];
+        _popPickerView = nil;
+    }
+}
+
 #pragma mark - target
 - (void)buttonClicked:(UIButton *)aSender {
     CGRect buttonFrame = aSender.frame;

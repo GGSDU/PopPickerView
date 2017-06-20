@@ -17,7 +17,6 @@
 
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) NSMutableArray *dataArray;
-@property (nonatomic,assign) BOOL shown;
 @property (nonatomic,assign) CGFloat buttonHeight;
 
 @end
